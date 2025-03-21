@@ -20,7 +20,7 @@ describe('json-schema-deref-sync', function () {
         var desFile = path.join('/var/tmp/json-deref-schema-tests/', filePath)
         fsx.copy(srcFile, desFile, cb)
       },
-      done
+      done,
     )
   })
 
@@ -107,8 +107,8 @@ describe('json-schema-deref-sync', function () {
       var schema = deref(input, {
         baseFolder: './test/schemas',
         loaders: {
-          file: customLoaders.file
-        }
+          file: customLoaders.file,
+        },
       })
       expect(schema).to.be.ok
       expect(schema).to.deep.equal(expected)
@@ -227,7 +227,7 @@ describe('json-schema-deref-sync', function () {
       var expected = require('./schemas/customtype.expected.json')
 
       var options = {
-        baseFolder: './test/schemas'
+        baseFolder: './test/schemas',
       }
 
       var schema = deref(input, options)
@@ -240,7 +240,7 @@ describe('json-schema-deref-sync', function () {
       var expected = require('./schemas/customunknown.expected.json')
 
       var options = {
-        baseFolder: './test/schemas'
+        baseFolder: './test/schemas',
       }
 
       var schema = deref(input, options)
@@ -398,7 +398,7 @@ describe('json-schema-deref-sync', function () {
       var schema = deref(input, {
         mergeAdditionalProperties: true,
         removeIds: true,
-        baseFolder: './test/schemas'
+        baseFolder: './test/schemas',
       })
       expect(schema).to.be.ok
       expect(schema).to.deep.equal(expected)
@@ -410,7 +410,7 @@ describe('json-schema-deref-sync', function () {
       var schema = deref(input, {
         mergeAdditionalProperties: true,
         removeIds: true,
-        baseFolder: './test/schemas'
+        baseFolder: './test/schemas',
       })
       expect(schema).to.be.ok
       expect(schema).to.deep.equal(expected)

@@ -1,12 +1,13 @@
 # json-schema-deref-sync
 
 [![npm version](https://img.shields.io/npm/v/json-schema-deref-sync.svg?style=flat-square)](https://www.npmjs.com/package/json-schema-deref-sync)
-[![build status](https://img.shields.io/travis/bojand/json-schema-deref-sync/master.svg?style=flat-square)](https://travis-ci.org/bojand/json-schema-deref-sync)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg?style=flat-square)](https://standardjs.com)
 [![License](https://img.shields.io/github/license/bojand/json-schema-deref-sync.svg?style=flat-square)](https://raw.githubusercontent.com/bojand/json-schema-deref-sync/master/LICENSE)
 
 Dereference JSON pointers in a JSON schemas with their true resolved values.
 Basically a lighter, synchronous version of [json-schema-deref](https://github.com/bojand/json-schema-deref) but omits web references.
+
+This version uses a custom built-in implementation for traversing objects rather than an external package for better performance and reduced dependencies.
 
 ## Installation
 
@@ -72,12 +73,11 @@ Sometimes you just want that schema to be fully expanded, with `$ref`'s being th
 
 This utility lets you do that:
 
-
 ```js
-var deref = require('json-schema-deref-sync');
-var myschema = require('schema.json');
+var deref = require('json-schema-deref-sync')
+var myschema = require('schema.json')
 
-var fullSchema = deref(myschema);
+var fullSchema = deref(myschema)
 ```
 
 ## API Reference
@@ -85,18 +85,18 @@ var fullSchema = deref(myschema);
 <a name="deref"></a>
 
 ## deref(schema, options) ⇒ <code>Object</code> \| <code>Error</code>
+
 Derefs <code>$ref</code>'s in JSON Schema to actual resolved values. Supports local, and file refs.
 
 **Kind**: global function  
-**Returns**: <code>Object</code> \| <code>Error</code> - the deref schema oran instance of <code>Error</code> if error.  
+**Returns**: <code>Object</code> \| <code>Error</code> - the deref schema oran instance of <code>Error</code> if error.
 
-| Param | Type | Description |
-| --- | --- | --- |
-| schema | <code>Object</code> | The JSON schema |
-| options | <code>Object</code> | options |
-| options.baseFolder | <code>String</code> | the base folder to get relative path files from. Default is <code>process.cwd()</code> |
-| options.failOnMissing | <code>Boolean</code> | By default missing / unresolved refs will be left as is with their ref value intact.                                        If set to <code>true</code> we will error out on first missing ref that we cannot                                        resolve. Default: <code>false</code>. |
-| options.mergeAdditionalProperties | <code>Boolean</code> | By default properties in a object with $ref will be removed in the output.                                                    If set to <code>true</code> they will be added/overwrite the output. This will use lodash's merge function.                                                    Default: <code>false</code>. |
-| options.removeIds | <code>Boolean</code> | By default <code>$id</code> fields will get copied when dereferencing.                                    If set to <code>true</code> they will be removed.  Merged properties will not get removed.                                    Default: <code>false</code>. |
-| options.loaders | <code>Object</code> | A hash mapping reference types (e.g., 'file') to loader functions. |
-
+| Param                             | Type                 | Description                                                                                                                                                                                                         |
+| --------------------------------- | -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| schema                            | <code>Object</code>  | The JSON schema                                                                                                                                                                                                     |
+| options                           | <code>Object</code>  | options                                                                                                                                                                                                             |
+| options.baseFolder                | <code>String</code>  | the base folder to get relative path files from. Default is <code>process.cwd()</code>                                                                                                                              |
+| options.failOnMissing             | <code>Boolean</code> | By default missing / unresolved refs will be left as is with their ref value intact. If set to <code>true</code> we will error out on first missing ref that we cannot resolve. Default: <code>false</code>.        |
+| options.mergeAdditionalProperties | <code>Boolean</code> | By default properties in a object with $ref will be removed in the output. If set to <code>true</code> they will be added/overwrite the output. This will use lodash's merge function. Default: <code>false</code>. |
+| options.removeIds                 | <code>Boolean</code> | By default <code>$id</code> fields will get copied when dereferencing. If set to <code>true</code> they will be removed. Merged properties will not get removed. Default: <code>false</code>.                       |
+| options.loaders                   | <code>Object</code>  | A hash mapping reference types (e.g., 'file') to loader functions.                                                                                                                                                  |
